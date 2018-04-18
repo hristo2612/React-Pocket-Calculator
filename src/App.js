@@ -28,12 +28,14 @@ class App extends Component {
     return (
       <div className="App">
           <div style={inlineHeadingStyle}>By far, the best calculator you can find out there!</div>
-          <ResultPanel 
-            className="App-result" value={this.state.nextNum || this.state.total || '0'} 
-          />
-          <ButtonPanel 
-            className="App-buttons" clickHandler={this.handleClick} 
-          />
+          <div className="Calculator">
+            <ResultPanel 
+              className="App-result" value={this.state.nextNum || this.state.total || '0'} 
+            />
+            <ButtonPanel 
+              className="App-buttons" clickHandler={this.handleClick} 
+            />
+          </div>
       </div>
     );
   }
