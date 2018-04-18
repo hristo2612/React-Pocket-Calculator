@@ -1,4 +1,6 @@
 .Button {
   background: #111;
   color: white;
+  width: 42px;
+  height: 42px;
 }

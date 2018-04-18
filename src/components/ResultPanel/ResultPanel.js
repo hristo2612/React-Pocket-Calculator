@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import logo from '../../logo.svg';
 
+import Result from './Result/Result';
+
 import './ResultPanel.css';
 
-class ResultPanel extends Component {
+class ResultPanel extends React.Component {
   render() {
     return (
-      <div>
+      <div className="ResultPanel">
+        <Result value={this.props.value} />
         <img src={logo} className="App-logo" alt="logo" />
       </div>
     );
