@@ -6,7 +6,7 @@ import './Result.css';
 class Result extends React.Component {
   render() {
     return (
-      <div>{this.props.value}</div>
+      <div className="Result">{this.props.value}</div>
     );
   }
 }
