@@ -7,6 +7,7 @@ export default function calculate(state, buttonName) {
       total: null,
       nextNum: null,
       operation: null,
+      currentOperation: null,
     };
   }
 
@@ -63,6 +64,7 @@ export default function calculate(state, buttonName) {
         total: operate(state.total, state.nextNum, state.operation),
         nextNum: null,
         operation: null,
+        currentOperation: null,
       };
     } else {
       return {};

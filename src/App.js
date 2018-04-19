@@ -16,12 +16,24 @@ class App extends Component {
     this.state = {
       total: null,
       nextNum: null,
-      operation: null
+      operation: null,
+      currentOperation: null, // this will include the numbers and the operator between them to display
     };
   }
 
   handleClick = (buttonName) => {
-    this.setState(calculate(this.state, buttonName));
+    this.setState(calculate(this.state, buttonName), () => {
+      const currState = this.state;
+      if ( currState.nextNum && currState.currentOperation && !currState.total && currState.operation !== "=" ) {
+        this.setState({ currentOperation: currState.currentOperation + ` ${currState.nextNum }`})
+      } else if ( currState.nextNum && !currState.operation && !currState.total) {
+        this.setState({ currentOperation: currState.nextNum + '' });
+      } else if ( currState.nextNum && currState.operation !== "=" ) {
+        this.setState({ currentOperation: currState.currentOperation + ` ${currState.nextNum}` });
+      } else if ( !currState.nextNum && currState.operation && currState.operation !== "=" && currState.total ) {
+        this.setState({currentOperation: currState.currentOperation + ` ${currState.operation}` });
+      }
+    });
   }
 
   render() {
@@ -30,7 +42,7 @@ class App extends Component {
           <div style={inlineHeadingStyle}>By far, the best calculator you can find out there!</div>
           <div className="Calculator">
             <ResultPanel 
-              className="App-result" value={this.state.nextNum || this.state.total || '0'} 
+              className="App-result" value={this.state.currentOperation || this.state.total || '0'} 
             />
             <ButtonPanel 
               className="App-buttons" clickHandler={this.handleClick} 
