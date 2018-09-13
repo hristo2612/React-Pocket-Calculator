@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ButtonPanel.css';
 
-import Button from './Button/Button';
+import Button from './Button';
 
 class ButtonPanel extends React.Component {
 

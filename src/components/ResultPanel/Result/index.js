@@ -6,13 +6,13 @@ import './Result.css';
 class Result extends React.Component {
   render() {
     return (
-      <div className="Result">{this.props.value}</div>
+      <div className="Result">{this.props.result}</div>
     );
   }
 }
 
 Result.propTypes = {
-  value: PropTypes.string
+  result: PropTypes.string
 }
 
 export default Result;

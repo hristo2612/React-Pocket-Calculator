@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ResultPanel from './components/ResultPanel/ResultPanel';
-import ButtonPanel from './components/ButtonPanel/ButtonPanel';
+import ResultPanel from './components/ResultPanel';
+import ButtonPanel from './components/ButtonPanel';
 import calculate from './helpers/calculate';
 import './App.css';
 
@@ -42,7 +42,7 @@ class App extends Component {
           <div style={inlineHeadingStyle}>By far, the best calculator you can find out there!</div>
           <div className="Calculator">
             <ResultPanel 
-              className="App-result" value={this.state.currentOperation || this.state.total || '0'} 
+              className="App-result" result={this.state.currentOperation || this.state.total || '0'} 
             />
             <ButtonPanel 
               className="App-buttons" clickHandler={this.handleClick} 
