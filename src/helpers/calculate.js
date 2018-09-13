@@ -2,102 +2,78 @@ import operate from './operate';
 import isNumber from './isNumber';
 
 export default function calculate(state, buttonName) {
+  
+  const { mainNum, secondNum, operator } = state;
+
   if (buttonName === 'AC') {
     return {
-      total: null,
-      nextNum: null,
-      operation: null,
-      currentOperation: null,
-    };
-  }
-
-  if (isNumber(buttonName)) {
-    if (buttonName === '0' && state.nextNum === '0') {
-      return {};
-    }
-
-    if (state.operation) {
-      if (state.nextNum) {
-        return { nextNum: state.nextNum + buttonName };
-      }
-      return { nextNum: buttonName };
-    }
-
-    if (state.nextNum) {
-      return {
-        nextNum: state.nextNum + buttonName,
-        total: null,
-      };
-    }
-
-    return {
-      nextNum: buttonName,
-      total: null,
+      mainNum: "",
+      secondNum: "",
+      operator: ""
     };
   }
 
   if (buttonName === '.') {
-    if (state.nextNum) {
-      if (state.nextNum.includes('.')) {
-        return {};
+    if (secondNum.indexOf('.') < 0 && operator) {
+      return {
+        secondNum: secondNum + buttonName
       }
-      return { nextNum: state.nextNum + '.' };
     }
-
-    if (state.operation) {
-      return { nextNum: '0.' };
-    }
-
-    if (state.total) {
-      if (state.total.includes('.')) {
-        return {};
+    if (mainNum.indexOf('.') < 0) {
+      return {
+        mainNum: mainNum + buttonName
       }
-      return { total: state.total + '.' };
+    }
+    return state;
+  } 
+
+  if (buttonName === '+/-') {
+    if (secondNum) {
+      return {
+        secondNum: ((-1 * parseFloat(secondNum)).toString())
+      }
     }
 
-    return { total: '0.' };
+    if (mainNum) {
+      return {
+        mainNum: ((-1 * parseFloat(mainNum)).toString())
+      }
+    }
   }
 
   if (buttonName === '=') {
-    if (state.nextNum && state.operation) {
+    if (secondNum && mainNum && operator) {
+      return { 
+        mainNum: operate(mainNum, secondNum, operator),
+        secondNum: "",
+        operator: "" 
+      };
+    }
+  }
+
+  if (isNumber(buttonName)) {
+    // IF we already have a MAIN number and an operator
+    if (mainNum && operator) {
       return {
-        total: operate(state.total, state.nextNum, state.operation),
-        nextNum: null,
-        operation: null,
-        currentOperation: null,
+        secondNum: secondNum + buttonName
       };
     } else {
-      return {};
+      return {
+        mainNum: mainNum + buttonName
+      }
     }
-  }
-
-  if (buttonName === '+/-') {
-    if (state.nextNum) {
-      return { nextNum: (-1 * parseFloat(state.nextNum)).toString() };
+  } else {
+    if (mainNum && secondNum && operator) {
+      return {
+        mainNum: operate(mainNum, secondNum, operator),
+        operator: buttonName,
+        secondNum: ""
+      }
     }
-
-    if (state.total) {
-      return { total: (-1 * parseFloat(state.total)).toString() };
-    }
-    
-    return {};
-  }
-
-  if (state.operation) {
     return {
-      total: operate(state.total, state.nextNum, state.operation),
-      nextNum: null,
-      operation: buttonName,
-    };
+      operator: buttonName
+    }
   }
 
-  if (!state.nextNum) {
-    return { operation: buttonName };
-  }
-
-  return {
-    total: state.nextNum,
-    nextNum: null,
-    operation: buttonName,
-  };
+  return state;
 }

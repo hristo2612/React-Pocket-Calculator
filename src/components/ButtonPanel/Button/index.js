@@ -2,22 +2,22 @@ import React from 'react';
 import './Button.css'
 import PropTypes from 'prop-types';
 
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+export const Button = ({ name, clickHandler }) => {
 
-  handleClick = () => {
-    this.props.clickHandler(this.props.name)
-  }
-
-  render() {
+  if (name && clickHandler) {
     return (
       <span>
-        <button className="Button" onClick={this.handleClick}>{this.props.name}</button>
+        <button className="Button" onClick={() => {clickHandler(name)}}>{name}</button>
       </span>
     );
   }
+  
+  return (
+    <span>
+      <button className="Button"><br/></button>
+    </span>
+  )
+  
 }
 
 Button.propTypes = {
