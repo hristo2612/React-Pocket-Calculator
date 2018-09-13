@@ -49,6 +49,7 @@ export default function calculate(state, buttonName) {
         operator: "" 
       };
     }
+    return state;
   }
 
   if (isNumber(buttonName)) {
